@@ -1,0 +1,22 @@
+
+<view class="main" >
+	<!-- 公共的头部 -->
+	<title></title>
+	<!-- 视频详情 -->
+	<view class="video_info">
+		<!-- 视频标签 -->
+		<video src="{{videoInfo.image.imageUrl}}" controls></video>
+		<!-- 视频标题 -->
+		<view class="video_title">{{videoInfo.filmName}}</view>
+		<view class="video_detail">
+			<!-- 导演 -->
+			<text class="video_director">导演：{{videoInfo.director}}\n</text>
+			<!-- 类型 -->
+			<text class="video_type">电影类型：{{videoInfo.type.typeName}}\n</text>
+			<!-- 电影时长 -->
+			<text class="video_duration">电影时长：{{videoInfo.duration}}</text>
+		</view>
+		
+	</view>
+</view>
+

@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "usingComponents":{
+    "title": "../../components/title/title",
+    "menu": "../../components/menu/menu"
+  }
+}

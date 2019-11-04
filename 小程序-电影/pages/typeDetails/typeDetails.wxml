@@ -1,0 +1,21 @@
+<view class="main">
+	<!-- 公共头部组件，自定义组件然后引用 -->
+	<title></title>
+	<!-- 首页导航 -->
+	<menu></menu>
+
+	<!-- 视频列表 -->
+	<view class="video_warp" wx:for="{{videoInfo}}" wx:key="{{index}}">
+		<!-- 点击跳转 -->
+		<navigator url="../details/details?id={{item.filmId}}" class="video_item">
+			<!-- 图片容器 -->
+			<view class="video_img">
+				<image mode="widthFix" src="{{item.image.imageUrl}}"></image>
+			</view>
+			<!-- 标题 -->
+			<view class="video_title">
+				{{item.filmName}}
+			</view>
+		</navigator>
+	</view>
+</view>

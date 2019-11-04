@@ -1,0 +1,14 @@
+	<!-- 首页导航 -->
+	<view class="nav_warp">
+
+		<!-- 自动滚动区域的组件 -->
+		<scroll-view class="nav" scroll-x>
+			<view bindtap= "activeNav" data-index="{{index}}"  
+			class="nav_item {{index ===currentIndexNav? 'active':''}}" 
+			wx:for="{{navList}}" wx:key="{{index}}">
+				<navigator url="../typeDetails/typeDetails?id={{item.typeId}}" class="video_item">
+                    {{item.typeName}}
+                </navigator>
+			</view>
+		</scroll-view>
+	</view>

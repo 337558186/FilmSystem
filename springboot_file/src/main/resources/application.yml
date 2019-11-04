@@ -1,0 +1,54 @@
+spring:
+  #文件上传
+  servlet:
+    multipart:
+      # 单个文件的最大值
+      max-file-size: 10MB
+      # 上传文件总的最大值
+      max-request-size: 10MB
+  #thymeleaf的配置
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+  #druid  数据库连接池的配置
+  datasource:
+    #   数据源基本配置
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/film?serverTimezone=UTC
+    type: com.alibaba.druid.pool.DruidDataSource
+    #   数据源其他配置
+    initialSize: 5             #初始化连接大小
+    minIdle: 5				   #最小连接池数量
+    maxActive: 20			   #最大连接池数量
+    maxWait: 60000				#等待时间
+    timeBetweenEvictionRunsMillis: 60000   #配置间隔多久才进行一次检测
+    minEvictableIdleTimeMillis: 300000    #配置一个连接在池中最小生存的时间 毫秒
+    validationQuery: SELECT 1 FROM DUAL     #测试连接
+    testWhileIdle: true    #申请连接的时候检测，建议配置为true，不影响性能，并且保证安全性
+    testOnBorrow: false    #获取连接时执行检测，建议关闭，影响性能
+    testOnReturn: false      #归还连接时执行检测，建议关闭，影响性能
+    poolPreparedStatements: true   #是否开启PSCache，PSCache对支持游标的数据库性能提升巨大，oracle建议开启，mysql下建议关闭
+
+    #   配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    useGlobalDataSourceStat: true
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
+  jpa:
+    hibernate:
+      ddl-auto: update  #根据实体类属性更新对应表列，没有就新创建
+    show-sql: true    #每次操作在控制台显示sql
+    database: mysql
+
+
+
+
+#mybatis的配置
+mybatis:
+  type-aliases-package: com.springboot.pojo
+  mapper-locations: classpath:mapper/*.xml
+  configuration:    #使用注解方法开启驼峰命名法的支持
+    map-underscore-to-camel-case: true

@@ -1,0 +1,20 @@
+/*视频列表*/
+.video_warp{
+	display: flex;
+	flex-wrap: wrap;
+	padding: 5rpx;
+	justify-content: space-between;
+}
+.video_item{
+	width: 45%;
+	margin-bottom: 20rpx;
+}
+.video_img image{
+	width: 180%;
+	margin-left: 80rpx;
+}
+.video_title{
+	width: 180%;
+	margin-left: 280rpx;
+	color: red
+}

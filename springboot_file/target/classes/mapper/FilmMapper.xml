@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.mapper.FilmMapper">
+
+    <resultMap id="filmMap" type="com.springboot.pojo.Film">
+        <id property="filmId" column="film_id"/>
+        <result property="filmName" column="film_name"/>
+        <result property="director" column="director"/>
+        <result property="duration" column="duration"/>
+        <result property="price" column="price"/>
+        <result property="date" column="date"/>
+        <association property="image" javaType="com.springboot.pojo.Image">
+            <id property="imageId" column="image_id"/>
+            <result property="imageUrl" column="image_url"/>
+        </association>
+        <association property="type" javaType="com.springboot.pojo.Type">
+            <id property="typeId" column="type_id"/>
+            <result property="typeName" column="type_name"/>
+        </association>
+        <association property="save" javaType="com.springboot.pojo.Save">
+            <id property="saveId" column="save_id"/>
+            <result property="saveUrl" column="save_url"/>
+        </association>
+        <association property="comments" javaType="com.springboot.pojo.Comments">
+            <id property="id" column="id"/>
+            <result property="score" column="scores"/>
+        </association>
+    </resultMap>
+
+
+    <sql id="film-connection">
+        left join type t on f.type_id = t.type_id
+		left join image i on f.image_id = i.image_id
+        left join save s on f.save_id = s.save_id
+    </sql>
+
+    <select id="listAll" resultMap="filmMap">
+        select f.film_id,f.film_name,f.director,f.duration,f.date,f.price,t.type_name,t.type_id,
+        i.image_id,i.image_url,s.save_url from film f
+        <include refid="film-connection"/>
+    </select>
+
+    <select id="count" resultType="integer">
+        select count(*) from film f
+        <include refid="film-connection"></include>
+    </select>
+
+    <delete id="deleteFilm" parameterType="integer">
+        delete from film where film_id = #{id}
+    </delete>
+
+    <update id="updateFilm">
+        update film
+        <set>
+            <if test="filmName !=null">film_name = #{filmName},</if>
+            <if test="director !=null">director = #{director},</if>
+            <if test="duration !=null">duration = #{duration},</if>
+            <if test="filmName !=null">price = #{price},</if>
+            <if test="date !=null"> date = #{date},</if>
+        </set>
+        where film_id = #{filmId}
+    </update>
+
+    <select id="getFilmByFilmName" resultMap="filmMap">
+        select f.film_id,f.film_name,f.director,f.duration,f.date,f.price,t.type_name,t.type_id,
+        i.image_id,i.image_url,s.save_url from film f
+        <include refid="film-connection"/>
+         where film_name like '%${filmName}%'
+    </select>
+
+    <insert id="addFilm">
+        insert into film(film_name, director, date, price,duration,image_id) values (#{filmName},#{director},#{date},#{price},#{duration},#{imageId})
+    </insert>
+
+
+    <select id="LastUpdated" resultMap="filmMap">
+        select f.film_id,f.film_name,f.director,f.duration,f.date,f.price,t.type_name,t.type_id,
+        i.image_id,i.image_url,s.save_url from film f
+        <include refid="film-connection"/>
+        order by f.date limit 0,5
+    </select>
+
+    <select id="getFilm" resultMap="filmMap">
+        select f.film_id,f.film_name,f.director,f.duration,f.date,f.price,t.type_name,t.type_id,
+        i.image_id,i.image_url,s.save_url from film f
+        <include refid="film-connection"/>
+        where f.type_id = #{type.typeId}
+    </select>
+
+    <select id="getById" resultMap="filmMap">
+        select f.film_id,f.film_name,f.director,f.duration,f.date,f.price,t.type_name,t.type_id,
+        i.image_id,i.image_url,s.save_url from film f
+        <include refid="film-connection"/>
+        where f.film_id = #{filmId}
+    </select>
+
+    <select id="listFilmByscore" resultMap="filmMap">
+        select f.film_id,f.film_name,f.director,f.duration,f.date,f.price,t.type_name,t.type_id,
+        i.image_id,i.image_url,s.save_url,a.scores from film f
+        <include refid="film-connection"/>
+        join (select film_id,avg(score) as scores from comments group by film_id) a on f.film_id = a.film_id
+        order by a.scores desc limit 0,5
+    </select>
+
+    <select id="countFilm" resultType="java.lang.Integer">
+        select count(*) from film group by type_id
+    </select>
+
+</mapper>

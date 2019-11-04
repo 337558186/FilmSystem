@@ -1,0 +1,18 @@
+.video_info{
+    margin-top: 10rpx;
+}
+.video_info video{
+    width: 100%;
+}
+.video_title{
+    margin-left: 270rpx;
+    display: flex;
+    justify-content: space-between;
+    font-size: 35rpx;
+    color:brown;
+}
+.video_detail{
+    margin-left: 270rpx;
+    margin-top: 5rpx;
+    font-size: 28rpx;
+}

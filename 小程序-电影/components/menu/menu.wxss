@@ -1,0 +1,19 @@
+/*首页导航*/
+page{
+	color: #666;
+	padding: 10rpx;
+}
+/*.nav_warp{}*/
+.nav{
+	white-space: nowrap;
+	padding: 5rpx 0;
+}
+.nav_item{
+	padding: 20rpx 45rpx;
+	font-size: 30rpx;
+	display: inline-block;
+}
+/* 选中后下划线 */
+.nav_item.active{
+	border-bottom: 5rpx solid #de688b;
+}

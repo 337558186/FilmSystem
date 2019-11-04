@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "1234电影网",
+  "usingComponents":{
+  	"title": "../../components/title/title"
+  }
+}
